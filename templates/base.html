@@ -4,6 +4,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+
 	<title>{% block title %}Alma{% endblock %}</title>
 	<link rel="stylesheet" type="text/css" href="{% static 'semantic.min.css' %}">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
@@ -11,8 +12,13 @@
 	<style type="text/css">{% block style %}{% endblock %}</style>
 </head>
 <body>
-	<div id="content">
-		{% block content %}{% endblock %}	
-	</div>
+	{% block content %}{% endblock %}	
+	<script type="text/javascript">
+$(document).ready(function(){
+	$('.message>.close').click(function() {
+		$(this).parent().transition('fade down');
+	});
+});
+	</script>
 </body>
 </html>

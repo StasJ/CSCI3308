@@ -4,59 +4,55 @@
 
 {% block style %}
 body {
-	background-color: #DADADA;
+background-color: #DADADA;
 }
 body > .grid {
-	height: 100%;
-}
-.image {
-	margin-top: -100px;
+height: 100%;
 }
 .column {
-	max-width: 450px;
+max-width: 450px;
 }
 {% endblock %}
 
 {% block content %}
 
-<form method="post" action="{% url 'login' %}">
-	{% csrf_token %}
-	{{ form.as_p }}
-	<button type="submit">Login</button>
-</form>
-
 <div class="ui middle aligned center aligned grid">
 	<div class="column">
-		<h2 class="ui teal image header">
+		<h2 class="ui blue image header">
 			<div class="content">
 				Log-in to your account
 			</div>
 		</h2>
 		<form class="ui large form" method="post" action="{% url 'login' %}">
+			{% csrf_token %}
 			<div class="ui stacked segment">
 				<div class="field">
 					<div class="ui left icon input">
 						<i class="user icon"></i>
-						<input type="text" name="email" placeholder="E-mail address">
-						{{ form.username }}
+						<input type="text" name="{{ form.username.name }}" value="{{ form.username.value|default_if_none:"" }}" autofocus maxlength="254" required id="id_username" placeholder="E-mail address" />
 					</div>
 				</div>
 				<div class="field">
 					<div class="ui left icon input">
 						<i class="lock icon"></i>
-						<input type="password" name="password" placeholder="Password">
+						<!--<input type="password" name="password" placeholder="Password">-->
+						<input type="password" name="{{ form.password.name }}" value="{{ form.password.value|default_if_none:"" }}" required id="id_password" placeholder="Password" />
 					</div>
 				</div>
-				<div class="ui fluid large teal submit button">Login</div>
+				<button class="ui fluid large blue submit button" type="submit">Login</button>
 			</div>
-
-			<div class="ui error message"></div>
-
 		</form>
-
-		<div class="ui message">
-			New to us? <a href="#">Sign Up</a>
+		
+		{% if form.errors %}
+		<div class="ui error message">
+			<i class="close icon"></i>
+			Your username and password didn't match.
 		</div>
+		{% endif %}
+
+		<br />
+		<p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+		<p>Don't have an account? <a href="#">Sign Up</a></p>
 	</div>
 </div>
 
