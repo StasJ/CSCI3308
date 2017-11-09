@@ -32,8 +32,8 @@ class AssignmentAttachment(models.Model):
 class AssignmentSubmission(models.Model):
     assignment = models.ForeignKey(Assignment, on_delete=models.CASCADE)
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
-    file = models.FileField(blank=True) # TODO
-    content = models.TextField(blank=True)
+    file = models.FileField(blank=True, null=True) # TODO
+    content = models.TextField(blank=True, null=True)
     comments = models.TextField(blank=True)
     notes = models.TextField(blank=True)
     grade = models.IntegerField(blank=True, null=True)
