@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'alma',
     'RTF',
     'course',
+    'assignments',
+    'forum',
 ]
 
 MIDDLEWARE = [
