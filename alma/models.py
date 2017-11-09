@@ -1,8 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.conf import settings
 
 class UserManager(BaseUserManager):
-
     use_in_migrations = True
 
     def _create_user(self, email, password, **extra_fields):
@@ -40,6 +40,7 @@ class User(AbstractUser):
 
     objects = UserManager()
 
+
 class School(models.Model):
     name = models.CharField(max_length=64)
     abbreviation = models.CharField(max_length=32)
@@ -47,3 +48,13 @@ class School(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Class(models.Model):
+    name = models.CharField(max_length=64)
+    school = models.ForeignKey(School, on_delete=models.CASCADE)
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
