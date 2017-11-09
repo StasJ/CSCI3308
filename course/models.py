@@ -11,7 +11,7 @@ class Course(models.Model):
     school = models.ForeignKey(School, on_delete=models.CASCADE)
 
     def __str__(self):
-        return self.department + ' ' + self.number + ': ' + self.title;
+        return self.department + ' ' + str(self.number) + ': ' + self.title;
 
 # class CourseResource(models.Model):
 
