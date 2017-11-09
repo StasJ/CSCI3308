@@ -40,13 +40,13 @@ class AssignmentSubmission(models.Model):
     when = models.DateTimeField(auto_now_add=True)
 
     def clean(self):
-        if (self.content is None     and self.file is None) or \
-           (self.content is not None and self.file is not None):
+        if (self.content and self.file) or \
+           (not self.content and not self.file):
             raise ValidationError('Assignment submission must either be a text submission or a file.')
-        if (not assignment.accept_late and assignment.due < self.when):
+        if (not self.assignment.accept_late and self.assignment.due < timezone.now()):
             raise ValidationError('Assignment is pass due and does not accept late submissions.')
 
     def __str__(self):
-        return assignment.name + ', ' + user.get_full_name()
+        return self.assignment.course.get_name() + ': ' + self.assignment.name + ': ' + self.user.get_full_name()
 
 
