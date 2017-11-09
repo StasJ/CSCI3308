@@ -13,6 +13,7 @@ class Post(models.Model):
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     parent = models.ForeignKey(Post, on_delete=models.CASCADE, empty=True)
     anonymous = models.BooleanField(default=False)
+    pinned = models.BooleanField(default=False)
     content = models.TextField()
 
     def __str__(self):
