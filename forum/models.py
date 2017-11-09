@@ -1,5 +1,6 @@
 from django.db import models
 from django.conf import settings
+from django.core.exceptions import ValidationError
 
 from course.models import Course
 
@@ -15,6 +16,10 @@ class Post(models.Model):
     anonymous = models.BooleanField(default=False)
     pinned = models.BooleanField(default=False)
     content = models.TextField()
+
+    def clean(self):
+        if self.parent == self:
+            raise ValidationError('Post.parent cannot be self')
 
     def __str__(self):
         return self.title
