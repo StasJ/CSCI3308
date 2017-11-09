@@ -17,9 +17,10 @@ class Post(models.Model):
     pinned = models.BooleanField(default=False)
     content = models.TextField()
 
-    def clean(self):
+    def clean_fields(self, exclude=None):
+        super(Post, self).clean_fields(exclude=exclude)
         if self.parent == self:
-            raise ValidationError('Post.parent cannot be self')
+            raise ValidationError({'parent': 'Parent cannot be self.'})
 
     def __str__(self):
         return self.title
