@@ -10,7 +10,7 @@ class Assignment(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
     published = models.BooleanField(default=False)
-    publish_time = models.DateTimeField()
+    publish_time = models.DateTimeField(default=timezone.now)
     grades_published = models.BooleanField(default=False)
     due = models.DateTimeField()
     description = models.TextField()
