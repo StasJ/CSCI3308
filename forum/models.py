@@ -2,6 +2,8 @@ from django.db import models
 from django.conf import settings
 from django.core.exceptions import ValidationError
 
+from taggit.managers import TaggableManager
+
 from course.models import Course
 
 # TODO
@@ -16,6 +18,7 @@ class Post(models.Model):
     anonymous = models.BooleanField(default=False)
     pinned = models.BooleanField(default=False)
     content = models.TextField()
+    tags = TaggableManager()
 
     def clean_fields(self, exclude=None):
         super(Post, self).clean_fields(exclude=exclude)
