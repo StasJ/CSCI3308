@@ -19,6 +19,8 @@ class Post(models.Model):
     pinned = models.BooleanField(default=False)
     content = models.TextField()
     tags = TaggableManager()
+    pub_time = models.DateTimeField(auto_now_add=True)
+    edit_time = models.DateTimeField(auto_now=True)
 
     def clean_fields(self, exclude=None):
         super(Post, self).clean_fields(exclude=exclude)
