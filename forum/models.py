@@ -18,7 +18,7 @@ class Post(models.Model):
     anonymous = models.BooleanField(default=False)
     pinned = models.BooleanField(default=False)
     content = models.TextField()
-    tags = TaggableManager()
+    tags = TaggableManager(blank=True)
     pub_time = models.DateTimeField(auto_now_add=True)
     edit_time = models.DateTimeField(auto_now=True)
 
