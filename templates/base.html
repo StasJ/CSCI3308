@@ -9,7 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="{% static 'semantic.min.css' %}">
 	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 	<script src="{% static 'semantic.min.js' %}"></script>
-	<style type="text/css">{% block style %}{% endblock %}</style>
+	<style type="text/css">
+		body { height: 0; }
+		{% block style %}{% endblock %}
+	</style>
 
 	{% include 'RTF/head.html' %}
 </head>

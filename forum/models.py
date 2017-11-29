@@ -27,5 +27,11 @@ class Post(models.Model):
         if self.parent == self:
             raise ValidationError({'parent': 'Parent cannot be self.'})
 
+    def author_name(self):
+        if self.anonymous:
+            return "Anonymous"
+        else:
+            return self.user.get_full_name()
+
     def __str__(self):
         return self.title

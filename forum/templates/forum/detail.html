@@ -1,11 +1,18 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block style %}
 <style>
-div.content {
+body {
+	position: fixed;
+	top: 0;
+}
+body>div.content {
 	margin-top: 7em
 }
 </style>
+{% endblock %}
+
+{% block content %}
 
 <div class="ui fixed inverted menu">
 	<div class="ui container">
@@ -25,24 +32,23 @@ div.content {
 	</div>
 </div>
 
+<div></div>
+
 <div class="ui main text container content">
-	<h1 class="ui header">{{ course.get_name }} Posts</h1>
-	<div class="ui divided items">
-		{% for post in post_list %}
-		<div class="item">
+	<h1 class="ui header">{{ post.title }}</h1>
+	<p>{{ post.content }}</p>
+	<hr />
+	<div class="ui comments">
+		<h3 class="ui dividing header">Replies</h3>
+		{% for c in post.post_set.all %}
+		<div class="comment">
 			<div class="content">
-				<a class="header" href="{% url 'forum:detail' course.id post.id %}">{{ post.title }}</a>
-				<div class="meta">
-					<span class="time">{{ post.pub_time }}</span>
-				</div>
-				<div class="extra">
-					<a class="ui label">Label</a>
-				</div>
+				<a class="author" href="">{{ c.author_name }}</a>
+				<div class="metadata"><span class="date">{{ c.pub_time }}</span></div>
+				<div class="text">{{ c.content }}</div>
+				<div class="actions"><a class="reply" href="">Reply</a></div>
 			</div>
-			<!--<div class="ui divider"></div>-->
 		</div>
-		{% empty %}
-		There are no posts.
 		{% endfor %}
 	</div>
 </div>
