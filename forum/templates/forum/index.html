@@ -1,29 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'course/base.html' %}
 
-{% block content %}
-<style>
-div.content {
-	margin-top: 7em
-}
-</style>
-
-<div class="ui fixed inverted menu">
-	<div class="ui container">
-		<a href="#" class="header item">
-			<img class="logo" src="assets/images/logo.png">
-			Alma
-		</a>
-		<a href="#" class="item">Home</a>
-		<div class="ui simple dropdown item">
-			{{ course.get_name }} <i class="dropdown icon"></i>
-			<div class="menu">
-				{% for c in course_list %}
-				<a class="item" href="{% url 'course_index' c.id %}">{{ c.get_name }}</a>
-				{% endfor %}
-			</div>
-		</div>
-	</div>
-</div>
+{% block course_content %}
 
 <div class="ui main text container content">
 	<h1 class="ui header">{{ course.get_name }} Posts</h1>
@@ -32,11 +9,16 @@ div.content {
 		<div class="item">
 			<div class="content">
 				<a class="header" href="{% url 'forum:detail' course.id post.id %}">{{ post.title }}</a>
-				<div class="meta">
+				<div class="meta right floated">
 					<span class="time">{{ post.pub_time }}</span>
 				</div>
+				<div class="meta">
+					<span class="author">{{ post.author_name }}</span>
+				</div>
 				<div class="extra">
-					<a class="ui label">Label</a>
+					{% for tag in post.tags.all %}
+					<a class="ui label">{{ tag }}</a>
+					{% endfor %}
 				</div>
 			</div>
 			<!--<div class="ui divider"></div>-->

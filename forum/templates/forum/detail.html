@@ -1,38 +1,6 @@
-{% extends 'base.html' %}
+{% extends 'course/base.html' %}
 
-{% block style %}
-<style>
-body {
-	position: fixed;
-	top: 0;
-}
-body>div.content {
-	margin-top: 7em
-}
-</style>
-{% endblock %}
-
-{% block content %}
-
-<div class="ui fixed inverted menu">
-	<div class="ui container">
-		<a href="#" class="header item">
-			<img class="logo" src="assets/images/logo.png">
-			Alma
-		</a>
-		<a href="#" class="item">Home</a>
-		<div class="ui simple dropdown item">
-			{{ course.get_name }} <i class="dropdown icon"></i>
-			<div class="menu">
-				{% for c in course_list %}
-				<a class="item" href="{% url 'course_index' c.id %}">{{ c.get_name }}</a>
-				{% endfor %}
-			</div>
-		</div>
-	</div>
-</div>
-
-<div></div>
+{% block course_content %}
 
 <div class="ui main text container content">
 	<h1 class="ui header">{{ post.title }}</h1>
