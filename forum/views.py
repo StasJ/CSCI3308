@@ -27,3 +27,12 @@ class PostView(TemplateView):
         context['post'] = post
         context['course_list'] = Course.objects.all()
         return context
+
+class NewView(TemplateView):
+    template_name = 'forum/new.html'
+
+    def get_context_data(self, course_id, **kwargs):
+        context = super(NewView, self).get_context_data(**kwargs)
+        course = get_object_or_404(Course, pk=course_id)
+        context['course'] = course
+        return context
