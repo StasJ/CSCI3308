@@ -8,15 +8,8 @@
 	<hr />
 	<div class="ui comments">
 		<h3 class="ui dividing header">Replies</h3>
-		{% for c in post.post_set.all %}
-		<div class="comment">
-			<div class="content">
-				<a class="author" href="">{{ c.author_name }}</a>
-				<div class="metadata"><span class="date">{{ c.pub_time }}</span></div>
-				<div class="text">{{ c.content }}</div>
-				<div class="actions"><a class="reply" href="">Reply</a></div>
-			</div>
-		</div>
+		{% for comment in post.post_set.all %}
+		{% include 'forum/comment.html' %}
 		{% endfor %}
 	</div>
 </div>

@@ -1,0 +1,16 @@
+<div class="comment">
+	<div class="content">
+		<a class="author" href="">{{ comment.author_name }}</a>
+		<div class="metadata"><span class="date">{{ comment.pub_time }}</span></div>
+		<div class="text">{{ comment.content }}</div>
+		<div class="actions"><a class="reply" href="">Reply</a></div>
+	</div>
+	{% comment %} Use |length instead of .count because the data needs to be fetched anyway {% endcomment %}
+	{% if comment.post_set.all|length != 0 %}
+	<div class="comments">
+		{% for comment in comment.post_set.all %}
+		{% include 'forum/comment.html' %}
+		{% endfor %}
+	</div>
+	{% endif %}
+</div>
