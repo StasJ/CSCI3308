@@ -27,7 +27,7 @@ class PostView(CourseView):
         return context
 
 class NewView(CourseView, FormView):
-    template_name = 'forum/new.html'
+    template_name = 'forum/new_post.html'
     form_class = NewPostForm
 
     def get_context_data(self, **kwargs):
