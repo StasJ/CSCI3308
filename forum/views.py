@@ -18,6 +18,7 @@ class ForumView(CourseView):
         return context
 
 class PostView(CourseView):
+    # template_name = 'forum/detail_metro.html'
     template_name = 'forum/detail.html'
 
     def get_context_data(self, post_id, **kwargs):
