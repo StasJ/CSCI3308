@@ -9,6 +9,7 @@
 	<link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}"  media="screen,projection"/>
 	<link rel="stylesheet" href="{% static 'style.css' %}">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	{% block css_include %}{% endblock %}	
 	<style type="text/css">
 	</style>
 </head>
@@ -52,6 +53,7 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
 <script src="{% static 'livereload/run.js' %}"></script>
+{% block js_include %}{% endblock %}
 <script>
 $(document).ready(function() {
 	$('.sidenav').sidenav();

@@ -1,5 +1,13 @@
 {% extends 'base.html' %}
 {% load humanize %}
+{% load static %}
+
+{% block css_include %}
+	<link href="{% static 'summernote/summernote-lite.css' %}" rel="stylesheet">
+{% endblock %}
+{% block js_include %}
+	<script src="{% static 'summernote/summernote-lite.js' %}"></script>
+{% endblock %}
 
 {% block main %}
 	{% if user == post.user %}
@@ -60,14 +68,27 @@
 						</div>
 					</form>
 				</div>
+				<div class="divider"></div>
+				<div class="card-content">
+					<div id="note">Hello World</div>
+				</div>
 			</div>
 		</div>
 	</div>
 {% endblock %}
 
-
+<script>
 {% block document_ready %}
 $('#{{ form.content.id_for_label }}').focus(function () {
 	$('form#new-reply .hide').removeClass('hide');
 });
+
+$('#note').summernote({
+	placeholder: 'placeholder',
+	tabsize: 2,
+	height: 100,
+	minHeight: 100,
+	maxHeight: 500
+});
 {% endblock %}
+</script>
