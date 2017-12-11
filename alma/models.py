@@ -44,7 +44,7 @@ class School(models.Model):
 class User(AbstractUser):
     username = None
     email = models.EmailField('email address', unique=True)
-    school = models.ForeignKey(School, on_delete=models.PROTECT)
+    school = models.ForeignKey(School, on_delete=models.PROTECT, null=True)
 
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
