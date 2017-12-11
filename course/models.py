@@ -32,6 +32,8 @@ class Membership(models.Model):
     course = models.ForeignKey(Course,                 on_delete=models.CASCADE)
     type = models.IntegerField(choices=TYPE_CHOICES, default=STUDENT)
 
+    def __str__(self):
+        return str(self.course) + ' ' + str(self.user) + ': ' + self.get_type_display()
 
 # class CourseResource(models.Model):
 
