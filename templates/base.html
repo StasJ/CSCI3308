@@ -4,26 +4,64 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-
 	<title>{% block title %}Alma{% endblock %}</title>
-	<link rel="stylesheet" type="text/css" href="{% static 'semantic.min.css' %}">
-	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
-	<script src="{% static 'semantic.min.js' %}"></script>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}"  media="screen,projection"/>
+	<link rel="stylesheet" href="{% static 'style.css' %}">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<style type="text/css">
-		body { height: 0; }
-		{% block style %}{% endblock %}
 	</style>
-
-	{% include 'RTF/head.html' %}
 </head>
 <body>
-	{% block content %}{% endblock %}	
-	<script type="text/javascript">
-$(document).ready(function(){
-	$('.message>.close').click(function() {
-		$(this).parent().transition('fade down');
+
+<header>
+	<ul id="user-dropdown" class="dropdown-content">
+		<li><a href=""><i class="material-icons left">account_circle</i>Profile</a></li>
+		<li><a href=""><i class="material-icons left">settings</i>Settings</a></li>
+		<li><a href=""><i class="material-icons left">exit_to_app</i>Logout</a></li>
+	</ul>
+	<ul id="course-select-dropdown" class="dropdown-content">
+		{% for course in course_list %}
+		<li><a href="{% url 'course_index' course.id %}">{{ course.get_name }}</a></li>
+		{% endfor %}
+	</ul>
+	<div class="navbar-fixed">
+		<nav class="white">
+			<div class="nav-wrapper">
+				<a href="#" data-target="sidenav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+				<a id="logo-large" class="brand-logo left hide-on-med-and-down" href="">Alma</a>
+				<a id="logo-small" class="brand-logo left hide-on-large-only" href="">Alma</a>
+				<ul class="right">
+					<li><a class="dropdown-trigger" href="#!" data-target="course-select-dropdown"><i class="material-icons left">class</i>{{ course.get_name }}<i class="material-icons right">arrow_drop_down</i></a></li>
+					<li><a class="dropdown-trigger" href="#!" data-target="user-dropdown"><i class="material-icons hide-on-med-and-up">account_circle</i><span class="hide-on-small-only">{{ user.get_full_name }}</span><i class="material-icons right hide-on-small-only">arrow_drop_down</i></a></li>
+				</ul>
+			</div>
+		</nav>
+	</div>
+	<ul id="sidenav" class="sidenav sidenav-fixed">
+		<li><a href="">Link 1</a></li>
+		<li><a href="">Link 2</a></li>
+		<li><a href="">Link 3</a></li>
+	</ul>
+</header>
+
+<main>
+{% block main %}{% endblock %}	
+</main>
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
+<script src="{% static 'livereload/run.js' %}"></script>
+<script>
+$(document).ready(function() {
+	$('.sidenav').sidenav();
+	$('.dropdown-trigger').dropdown();
+
+	$('#{{ form.content.id_for_label }}').focus(function () {
+		$('form#new-reply .hide').removeClass('hide');
 	});
+	{% block document_ready %}{% endblock %}
 });
-	</script>
+</script>
 </body>
 </html>
