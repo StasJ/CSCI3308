@@ -1,5 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.views.generic import TemplateView
+from django.urls import reverse
 
 from course.models import Course
 
@@ -12,3 +14,6 @@ class CourseView(TemplateView):
         context['course'] = course
         context['course_list'] = Course.objects.all()
         return context
+
+def courseHomeRedirect(request):
+    return HttpResponseRedirect(reverse('course_index', args=[1]))
