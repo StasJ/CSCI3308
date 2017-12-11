@@ -2,12 +2,13 @@ from django.shortcuts import render, get_object_or_404
 from django.views.generic import ListView
 from django.views.generic import TemplateView, FormView
 from django.urls import reverse
+from django.contrib.auth import get_user
 
 from course.views import CourseView
 from course.models import Course
 
 from .models import Post
-from .forms import NewPostForm
+from .forms import NewPostForm, NewCommentForm
 
 class ForumView(CourseView):
     template_name = 'forum/index.html'
@@ -17,15 +18,28 @@ class ForumView(CourseView):
         context['post_list'] = context['course'].post_set.exclude(parent__isnull=False).order_by('-pub_time')
         return context
 
-class PostView(CourseView):
+
+class PostView(CourseView, FormView):
     # template_name = 'forum/detail_metro.html'
     template_name = 'forum/detail.html'
+    form_class = NewCommentForm
 
     def get_context_data(self, post_id, **kwargs):
         context = super(PostView, self).get_context_data(**kwargs)
         post = get_object_or_404(Post, pk=post_id)
         context['post'] = post
         return context
+
+    def form_valid(self, form):
+        kwargs = self.kwargs # post does not pass in kwargs
+        comment = form.save(commit=False)
+        comment.user = get_user(self.request)
+        comment.course_id = kwargs['course_id']
+        comment.parent_id = kwargs['post_id']
+        comment.save()
+        self.success_url = reverse('forum:detail', args=(kwargs['course_id'], kwargs['post_id']))
+        return super().form_valid(form)
+
 
 class NewView(CourseView, FormView):
     template_name = 'forum/new_post.html'
@@ -40,5 +54,5 @@ class NewView(CourseView, FormView):
         kwargs = self.kwargs # post does not pass in kwargs
         # save new post here
         self.success_url = reverse('forum:detail', args=(kwargs['course_id'], 1))
-        return super(NewView, self).form_valid(form)
+        return super().form_valid(form)
 

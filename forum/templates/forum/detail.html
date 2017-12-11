@@ -85,11 +85,13 @@
 				{% endfor %}
 
 				<div class="card-content">
-					<form id='new-reply' action="">
+					<form id="new-reply" method="post">
+						{% csrf_token %}
 						<div class="row clear">
 							<div class="input-field col s12" style="margin: 0;">
-								<textarea id="new-reply-area" class="materialize-textarea" name="" cols="30" rows="10"></textarea>
-								<label for="new-reply-area">Add a reply</label>
+								<!--<textarea id="new-reply-area" class="materialize-textarea" name="" cols="30" rows="10"></textarea>-->
+								{{ form.content }}
+								{{ form.content.label_tag }}
 							</div>
 						</div>
 						<div class="row clear hide" style="margin-top: 8px;">
@@ -116,7 +118,7 @@ $(document).ready(function() {
 	$('.sidenav').sidenav();
 	$('.dropdown-trigger').dropdown();
 
-	$('#new-reply-area').focus(function () {
+	$('#{{ form.content.id_for_label }}').focus(function () {
 		$('form#new-reply .hide').removeClass('hide');
 		console.log('FOCUS');
 	});
