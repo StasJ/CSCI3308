@@ -57,9 +57,6 @@ $(document).ready(function() {
 	$('.sidenav').sidenav();
 	$('.dropdown-trigger').dropdown();
 
-	$('#{{ form.content.id_for_label }}').focus(function () {
-		$('form#new-reply .hide').removeClass('hide');
-	});
 	{% block document_ready %}{% endblock %}
 });
 </script>
