@@ -31,15 +31,6 @@ class UserManager(BaseUserManager):
 
         return self._create_user(email, password, **extra_fields)
 
-class User(AbstractUser):
-    username = None
-    email = models.EmailField('email address', unique=True)
-
-    USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
-
-    objects = UserManager()
-
 
 class School(models.Model):
     name = models.CharField(max_length=64)
@@ -50,3 +41,12 @@ class School(models.Model):
         return self.name
 
 
+class User(AbstractUser):
+    username = None
+    email = models.EmailField('email address', unique=True)
+    school = models.ForeignKey(School, on_delete=models.PROTECT)
+
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = []
+
+    objects = UserManager()
