@@ -13,7 +13,7 @@ class CourseView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         context = super(CourseView, self).get_context_data(**kwargs)
         course = get_object_or_404(Course, pk=course_id)
         context['course'] = course
-        context['course_list'] = Course.objects.all()
+        context['course_list'] = self.request.user.course_set.all()
         return context
 
     def test_func(self):
