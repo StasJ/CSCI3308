@@ -53,6 +53,10 @@ class NewPostView(CourseView, FormView):
     def form_valid(self, form):
         kwargs = self.kwargs # post does not pass in kwargs
         # save new post here
-        self.success_url = reverse('forum:detail', args=(kwargs['course_id'], 1))
+        post = form.save(commit=False)
+        post.user = get_user(self.request)
+        post.course_id = kwargs['course_id']
+        post.save()
+        self.success_url = reverse('forum:detail', args=(kwargs['course_id'], post.id))
         return super().form_valid(form)
 
