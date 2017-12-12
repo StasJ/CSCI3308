@@ -30,7 +30,7 @@ var MQ = MathQuill.getInterface(2);
 			context.memo('button.equation', function () {
 				// create button
 				var button = ui.button({
-					contents: '<i class="tiny material-icons">functions</i>',
+					contents: '<i class="tiny material-icons" style="margin-top: 0.4rem;">functions</i>',
 					// contents: '<i class="material-icons">functions</i>',
 					tooltip: 'LaTeX Equation',
 
