@@ -7,9 +7,11 @@
 	<title>{% block title %}Alma{% endblock %}</title>
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link type="text/css" rel="stylesheet" href="{% static 'materialize/css/materialize.min.css' %}"  media="screen,projection"/>
-	<link rel="stylesheet" href="{% static 'style.css' %}">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<link type="text/css" rel="stylesheet" href="{% static 'mathquill/mathquill.css' %}">
+	<link type="text/css" rel="stylesheet" href="{% static 'summernote/summernote-lite.css' %}">
+	<link type="text/css" rel="stylesheet" href="{% static 'style.css' %}">
 	{% block css_include %}{% endblock %}	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<style type="text/css">
 	</style>
 </head>
@@ -52,7 +54,10 @@
 
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
-<script src="{% static 'livereload/run.js' %}"></script>
+<script type="text/javascript" src="{% static 'mathquill/mathquill.js' %}"></script>
+<script type="text/javascript" src="{% static 'summernote/summernote-lite.js' %}"></script>
+<script type="text/javascript" src="{% static 'summernote/plugin/math/summernote-ext-math.js' %}"></script>
+<script type="text/javascript" src="{% static 'livereload/run.js' %}"></script>
 {% block js_include %}{% endblock %}
 <script>
 $(document).ready(function() {
