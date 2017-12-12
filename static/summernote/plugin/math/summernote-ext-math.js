@@ -32,7 +32,12 @@ var MQ = MathQuill.getInterface(2);
 				var button = ui.button({
 					contents: '<i class="tiny material-icons">functions</i>',
 					// contents: '<i class="material-icons">functions</i>',
-					tooltip: 'equation',
+					tooltip: 'LaTeX Equation',
+
+					// Might not work in modals?
+					container: 'body',
+					target: 'body',
+
 					click: function () {
 						self.$panel.show();
 						self.$panel.hide(500);
@@ -57,15 +62,16 @@ var MQ = MathQuill.getInterface(2);
 				return $equation;
 			});
 
+			this.$
 			// This events will be attached when editor is initialized.
 			this.events = {
 				// This will be called after modules are initialized.
 				'summernote.init': function (we, e) {
-					console.log('summernote initialized', we, e);
+					// console.log('summernote initialized', we, e);
 				},
 				// This will be called when user releases a key on editable.
 				'summernote.keyup': function (we, e) {
-					console.log('summernote keyup', we, e);
+					// console.log('summernote keyup', we, e);
 				}
 			};
 
