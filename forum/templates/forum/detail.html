@@ -2,13 +2,6 @@
 {% load humanize %}
 {% load static %}
 
-{% block css_include %}
-	<link href="{% static 'summernote/summernote-lite.css' %}" rel="stylesheet">
-{% endblock %}
-{% block js_include %}
-	<script src="{% static 'summernote/summernote-lite.js' %}"></script>
-{% endblock %}
-
 {% block main %}
 	{% if user == post.user %}
 	<a id="edit-post" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
@@ -88,7 +81,16 @@ $('#note').summernote({
 	tabsize: 2,
 	height: 100,
 	minHeight: 100,
-	maxHeight: 500
+	maxHeight: 500,
+	toolbar: [
+		['style', ['bold', 'italic', 'underline', 'clear']],
+		['font', ['strikethrough', 'superscript', 'subscript']],
+		['fontsize', ['fontsize']],
+		['color', ['color']],
+		['para', ['ul', 'ol', 'paragraph']],
+		['insert', ['link', 'picture', 'equation', 'table']]
+		//['equation']
+		]
 });
 {% endblock %}
 </script>
