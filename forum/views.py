@@ -41,13 +41,13 @@ class PostView(CourseView, FormView):
         return super().form_valid(form)
 
 
-class NewView(CourseView, FormView):
+class NewPostView(CourseView, FormView):
     template_name = 'forum/new_post.html'
     form_class = NewPostForm
 
     def get_context_data(self, **kwargs):
         kwargs = self.kwargs # post -> form_invalid does not pass in kwargs
-        context = super(NewView, self).get_context_data(**kwargs)
+        context = super().get_context_data(**kwargs)
         return context
 
     def form_valid(self, form):
