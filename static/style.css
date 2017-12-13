@@ -8,6 +8,11 @@
 	padding: 0;
 }
 
+.row .col {
+	margin: 0;
+	padding: 0;
+}
+
 nav {
 	z-index: 1000 !important;
 }

@@ -35,7 +35,7 @@
 						<b class="grey-text text-darken-3">{{ comment.author_name }}</b>
 						<span class="right grey-text">{{ comment.pub_time | naturaltime }}</span>
 					</div>
-					<p>{{ comment.content }}</p>
+					<p>{{ comment.content|safe }}</p>
 				</div>
 				<div class="divider"></div>
 				{% endfor %}
@@ -44,10 +44,11 @@
 					<form id="new-reply" method="post">
 						{% csrf_token %}
 						<div class="row clear">
-							<div class="input-field col s12" style="margin: 0;">
+							<h6 class="grey-text text-darken-3">Add a reply</h6>
+							<div class="input-field col s12 clear" style="margin: 0;">
 								<!--<textarea id="new-reply-area" class="materialize-textarea" name="" cols="30" rows="10"></textarea>-->
 								{{ form.content }}
-								{{ form.content.label_tag }}
+								<!--{{ form.content.label_tag }}-->
 							</div>
 						</div>
 						<div class="row clear hide" style="margin-top: 8px;">
@@ -55,15 +56,11 @@
 								Submit <i class="material-icons right">send</i>
 							</button>
 							<label class="right" style="margin-top: 8px;">
-								<input type="checkbox" class="filled-in" />
-								<span>Anonymous</span>
+								<input name="{{ form.anonymous.name }}" type="checkbox" class="filled-in" />
+								<span>{{ form.anonymous.label }}</span>
 							</label>
 						</div>
 					</form>
-				</div>
-				<div class="divider"></div>
-				<div class="card-content">
-					<textarea class="summernote">Hello World</textarea>
 				</div>
 			</div>
 		</div>
@@ -72,12 +69,10 @@
 
 <script>
 {% block document_ready %}
-$('#{{ form.content.id_for_label }}').focus(function () {
-	$('form#new-reply .hide').removeClass('hide');
-});
+//$('#{{ form.content.id_for_label }}').focus(function () {
 
 $('.summernote').summernote({
-	placeholder: 'placeholder',
+	placeholder: 'Add a reply',
 	tabsize: 2,
 	height: 100,
 	minHeight: 100,
@@ -91,5 +86,10 @@ $('.summernote').summernote({
 		['insert', ['link', 'picture', 'equation', 'table']]
 		]
 });
+
+$('.summernote').on('summernote.focus', function () {
+	$('form#new-reply .hide').removeClass('hide');
+});
+
 {% endblock %}
 </script>

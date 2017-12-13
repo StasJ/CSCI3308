@@ -36,6 +36,7 @@ class PostView(CourseView, FormView):
         comment.user = get_user(self.request)
         comment.course_id = kwargs['course_id']
         comment.parent_id = kwargs['post_id']
+        comment.title = "Reply to post " + str(comment.parent_id)
         comment.save()
         self.success_url = reverse('forum:detail', args=(kwargs['course_id'], kwargs['post_id']))
         return super().form_valid(form)
