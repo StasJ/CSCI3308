@@ -23,10 +23,10 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     url('^', include('django.contrib.auth.urls')),
-    url(r'^$', TemplateView.as_view(template_name='index.html'), name='index'),
     url(r'^course/', include('course.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^livereload/', include('livereload.urls')),
+    url(r'^', include('frontend.urls')),
 ]
 
 if settings.DEBUG:

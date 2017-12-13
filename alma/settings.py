@@ -32,6 +32,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
         "localhost",
         "10.0.0.5",
+        "104.236.7.113",
+        "almaedu.hopto.org",
         ]
 
 
@@ -55,6 +57,7 @@ INSTALLED_APPS = [
     'assignments',
     'forum',
     'livereload',
+    'frontend',
 ]
 
 MIDDLEWARE = [
@@ -86,7 +89,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'alma.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.11/ref/settings/#databases
@@ -121,6 +123,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LOGIN_URL = '/login'
 LOGIN_REDIRECT_URL = '/course'
+LOGOUT_REDIRECT_URL = '/'
 
 
 # Internationalization

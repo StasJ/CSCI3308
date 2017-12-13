@@ -20,4 +20,4 @@ class CourseView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         return self.request.user.course_set.filter(id=self.kwargs['course_id']).exists()
 
 def courseHomeRedirect(request):
-    return HttpResponseRedirect(reverse('course_index', args=[1]))
+    return HttpResponseRedirect(reverse('forum:index', args=[1]))

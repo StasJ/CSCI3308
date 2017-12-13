@@ -35,5 +35,3 @@ class Membership(models.Model):
     def __str__(self):
         return str(self.course) + ' ' + str(self.user) + ': ' + self.get_type_display()
 
-# class CourseResource(models.Model):
-
