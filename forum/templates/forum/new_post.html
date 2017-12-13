@@ -1,16 +1,70 @@
-{% extends 'course/base.html' %}
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
 
-{% block course_content %}
+{% block title %} | New Post{% endblock %}
 
-<div class="ui main text container content">
-	<h1 class="ui header">New Post</h1>
-
-	<form action="{% url 'forum:new' course.id %}" method="post">
-		{% csrf_token %}
-		{{ form }}
-		<input type="submit" value="Submit">
-	</form>
-
-</div>
+{% block main %}
+	<div class="row">
+		<div id="post" class="card clear-m">
+			<div class="card-content">
+				<span class="card-title">New Post</span>
+				<p>{{ post.content | safe }}</p>
+			</div>
+			<div class="divider"></div>
+			<form id="new-post-form" method="POST">
+				{% csrf_token %}
+				<div class="card-content">
+					<div class="row clear">
+						<div class="input-field col s12">
+							{{ form.title }}
+							{{ form.title.label_tag }}
+							{{ form.title.errors }}
+						</div>
+					</div>
+					<div class="row clear">
+						<div class="input-field col s12">
+							{{ form.content }}
+							{{ form.content.label_tag }}
+							{{ form.content.errors }}
+						</div>
+					</div>
+					<div class="row clear">
+						<label>
+							{{ form.anonymous }}
+							<span>{{ form.anonymous.label }}</span>
+						</label>
+					</div>
+				</div>
+				<div class="card-action">
+					<div class="right-align"><button class="btn" type="submit">Post</button></div>
+				</div>
+			</form>
+		</div>
+	</div>
 
 {% endblock %}
+
+<script>
+{% block document_ready %}
+$('#{{ form.content.id_for_label }}').focus(function () {
+	$('form#new-reply .hide').removeClass('hide');
+});
+
+$('.summernote').summernote({
+	placeholder: 'Post content',
+	tabsize: 2,
+	height: 100,
+	minHeight: 100,
+	maxHeight: 500,
+	toolbar: [
+		['style', ['bold', 'italic', 'underline', 'clear']],
+		['font', ['strikethrough', 'superscript', 'subscript']],
+		['fontsize', ['fontsize']],
+		['color', ['color']],
+		['para', ['ul', 'ol', 'paragraph']],
+		['insert', ['link', 'picture', 'equation', 'table']]
+		]
+});
+{% endblock %}
+</script>

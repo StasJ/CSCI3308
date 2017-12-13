@@ -5491,7 +5491,15 @@ var AutoSync = /** @class */ (function () {
         this.$note = context.layoutInfo.note;
         this.events = {
             'summernote.change': function () {
-                _this.$note.val(context.invoke('code'));
+				// TODO fix
+				var domStr = '<div>' + context.invoke('code') + '</div>';
+				var dom = $.parseHTML(domStr);
+				$(dom).find('span.mq-editable-field').each(function() {
+					$(this).text(MQ(this).latex());
+					$(this).removeClass('mq-editable-field mq-math-mode mq-focused');
+				});
+				_this.$note.val($(dom).html());
+                //_this.$note.val(context.invoke('code'));
             }
         };
     }

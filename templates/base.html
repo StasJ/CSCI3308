@@ -55,6 +55,9 @@
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="{% static 'materialize/js/materialize.min.js' %}"></script>
 <script type="text/javascript" src="{% static 'mathquill/mathquill.js' %}"></script>
+<script type="text/javascript">
+var MQ = MathQuill.getInterface(2);
+</script>
 <script type="text/javascript" src="{% static 'summernote/summernote-lite.js' %}"></script>
 <script type="text/javascript" src="{% static 'summernote/plugin/math/summernote-ext-math.js' %}"></script>
 <script type="text/javascript" src="{% static 'livereload/run.js' %}"></script>
@@ -63,6 +66,10 @@
 $(document).ready(function() {
 	$('.sidenav').sidenav();
 	$('.dropdown-trigger').dropdown();
+
+	$('span.latex').not('.summernote span.latex').each(function() {
+		MQ.StaticMath(this);
+	});
 
 	{% block document_ready %}{% endblock %}
 });

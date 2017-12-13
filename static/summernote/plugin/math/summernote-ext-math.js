@@ -1,4 +1,25 @@
-var MQ = MathQuill.getInterface(2);
+jQuery.fn.extend({
+  summernoteInitializeMath: function() {
+    return this.each(function() {
+		$(this).find('span.latex').each(function() {
+			console.log(this);
+			MQ.MathField(this, {
+				autoCommands: 'pi theta'
+			});
+		});
+    });
+  },
+  summernoteDeinitializeMath: function() {
+    return this.each(function() {
+		$(this).find('span.mq-editable-field').each(function() {
+			$(this).text(MQ(this).latex());
+			$(this).removeClass('mq-editable-field mq-math-mode mq-focused');
+		});
+    });
+  }
+});
+
+
 (function (factory) {
 	/* global define */
 	if (typeof define === 'function' && define.amd) {
@@ -39,11 +60,11 @@ var MQ = MathQuill.getInterface(2);
 					target: 'body',
 
 					click: function () {
-						self.$panel.show();
-						self.$panel.hide(500);
+						//self.$panel.show();
+						//self.$panel.hide(500);
 						// invoke insertText method with 'equation' on editor module.
 						var $span = $('<span>', {
-							//'class': 'math',
+							'class': 'latex',
 							'contenteditable': 'false'}
 						).text('');
 						var $p = $('<p>').append($span);
@@ -67,6 +88,7 @@ var MQ = MathQuill.getInterface(2);
 			this.events = {
 				// This will be called after modules are initialized.
 				'summernote.init': function (we, e) {
+					e.editingArea.summernoteInitializeMath();
 					// console.log('summernote initialized', we, e);
 				},
 				// This will be called when user releases a key on editable.
@@ -99,3 +121,4 @@ var MQ = MathQuill.getInterface(2);
 		}
 	});
 }));
+
