@@ -49,6 +49,13 @@ class NewPostView(CourseView, FormView):
     template_name = 'forum/new_post.html'
     form_class = NewPostForm
 
+    def get_form(self):
+        if self.request.GET and self.request.GET['id']:
+            post = get_object_or_404(Post, pk=self.request.GET['id'], type=Post.FORUM, user_id=self.request.user.id)
+            return self.form_class(instance=post, **self.get_form_kwargs())
+        else:
+            return self.form_class(**self.get_form_kwargs())
+
     def get_context_data(self, **kwargs):
         kwargs = self.kwargs # post -> form_invalid does not pass in kwargs
         context = super().get_context_data(**kwargs)
