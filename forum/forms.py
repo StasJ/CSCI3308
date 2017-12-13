@@ -31,7 +31,7 @@ class RTFField(forms.CharField):
 
     def clean(self, value):
         return bleach.clean(super().clean(value),
-                tags = ['p', 'b', 'u', 'i', 'br', 'sup', 'strike', 'sub', 'img', 'ol', 'ul', 'li', 'table', 'tr', 'td', 'a', 'span'],
+                tags = ['div', 'p', 'b', 'u', 'i', 'br', 'sup', 'strike', 'sub', 'img', 'ol', 'ul', 'li', 'table', 'thead', 'tbody', 'tr', 'td', 'th', 'a', 'span'],
                 attributes = {
                     '*': 'style',
                     'span':'class',

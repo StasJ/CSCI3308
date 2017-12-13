@@ -1,55 +1,3 @@
-<!--
-
-	body {
-	background-color: #DADADA;
-	}
-	body > .grid {
-	height: 100%;
-	}
-	.column {
-	max-width: 450px;
-	}
-
-	<div class="ui middle aligned center aligned grid">
-	<div class="column">
-	<h2 class="ui blue image header">
-	<div class="content">
-	Log-in to your account
-	</div>
-	</h2>
-	<form class="ui large form" method="post" action="{% url 'login' %}">
-	{% csrf_token %}
-	<div class="ui stacked segment">
-	<div class="field">
-	<div class="ui left icon input">
-	<i class="user icon"></i>
-	<input type="text" name="{{ form.username.name }}" value="{{ form.username.value|default_if_none:"" }}" autofocus maxlength="254" required id="id_username" placeholder="E-mail address" />
-	</div>
-	</div>
-	<div class="field">
-	<div class="ui left icon input">
-	<i class="lock icon"></i>
-	<input type="password" name="{{ form.password.name }}" value="{{ form.password.value|default_if_none:"" }}" required id="id_password" placeholder="Password" />
-	</div>
-	</div>
-	<button class="ui fluid large blue submit button" type="submit">Login</button>
-	</div>
-	</form>
-
-	{% if form.errors %}
-	<div class="ui error message">
-	<i class="close icon"></i>
-	Your username and password didn't match.
-	</div>
-	{% endif %}
-
-	<br />
-	<p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
-	<p>Don't have an account? <a href="#">Sign Up</a></p>
-	</div>
-	</div>
--->
-
 {% load static %}
 
 <!DOCTYPE html>
@@ -63,6 +11,9 @@
 		<style type="text/css">
 form .row {
 	margin-bottom: 0;
+}
+body {
+	background-color: rgb(249, 249, 249);
 }
 		</style>
 	</head>
@@ -105,6 +56,7 @@ form .row {
 							</div>
 							<div class="card-action">
 								<div class="right-align">
+									<a class="teal-text text-darken-3" href="{% url 'frontend:register' %}">Sign Up</a>
 									<button class="btn" type="submit">Login</button>
 								</div>
 							</div>

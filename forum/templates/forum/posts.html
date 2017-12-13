@@ -15,10 +15,10 @@
 				{% for post in post_list %}
 				<div id="post-{{ post.id }}" class="card-content">
 					<div class="row">
-						<b class="grey-text text-darken-3">{{ post.title }}</b>
+						<a href="{% url 'forum:detail' course.id post.id %}"><b class="grey-text text-darken-3">{{ post.title }}</b></a>
 						<span class="right grey-text">{{ post.pub_time | naturaltime }}</span>
 					</div>
-					<p class="truncate">{{ post.content|safe }}</p>
+					<p>{{ post.content|safe|truncatechars_html:200 }}</p>
 				</div>
 				<div class="divider"></div>
 				{% endfor %}

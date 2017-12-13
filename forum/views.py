@@ -16,7 +16,7 @@ class ForumView(CourseView):
 
     def get_context_data(self, **kwargs):
         context = super(ForumView, self).get_context_data(**kwargs)
-        context['post_list'] = context['course'].post_set.exclude(parent__isnull=False, type=Post.FORUM).order_by('-pub_time')
+        context['post_list'] = context['course'].post_set.filter(parent__isnull=True, type=Post.FORUM).order_by('-pub_time')
         return context
 
 
@@ -60,7 +60,7 @@ class NewPostView(CourseView, FormView):
         post = form.save(commit=False)
         post.user = get_user(self.request)
         post.course_id = kwargs['course_id']
-        comment.type = Post.FORUM
+        post.type = Post.FORUM
         post.save()
         self.success_url = reverse('forum:detail', args=(kwargs['course_id'], post.id))
         return super().form_valid(form)
