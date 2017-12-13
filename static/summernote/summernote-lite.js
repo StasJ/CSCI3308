@@ -5494,6 +5494,14 @@ var AutoSync = /** @class */ (function () {
 				// TODO fix
 				var domStr = '<div>' + context.invoke('code') + '</div>';
 				var dom = $.parseHTML(domStr);
+				/*
+				while ($(dom).first().html().length == 0) {
+					$(dom).first().remove();
+				}
+				while ($(dom).last().html().length == 0) {
+					$(dom).last().remove();
+				}
+				*/
 				$(dom).find('span.mq-editable-field').each(function() {
 					$(this).text(MQ(this).latex());
 					$(this).removeClass('mq-editable-field mq-math-mode mq-focused');

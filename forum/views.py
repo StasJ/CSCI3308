@@ -11,7 +11,7 @@ from .models import Post
 from .forms import NewPostForm, NewCommentForm
 
 class ForumView(CourseView):
-    template_name = 'forum/index.html'
+    template_name = 'forum/posts.html'
 
     def get_context_data(self, **kwargs):
         context = super(ForumView, self).get_context_data(**kwargs)

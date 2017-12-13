@@ -69,7 +69,9 @@ jQuery.fn.extend({
 						).text('');
 						var $p = $('<p>').append($span);
 
-						context.invoke('editor.insertNode', $p[0]);
+						context.invoke('editor.insertText', ' ');
+						context.invoke('editor.insertNode', $span[0]);
+						context.invoke('editor.insertText', ' ');
 
 						//MQ.StaticMath($span[0]);
 						MQ.MathField($span[0], {
