@@ -27,11 +27,8 @@ class PostView(CourseView, FormView):
 
     def get_context_data(self, post_id, **kwargs):
         context = super(PostView, self).get_context_data(**kwargs)
-        post = get_object_or_404(Post, pk=post_id)
+        post = get_object_or_404(Post, pk=post_id, type=Post.FORUM)
         context['post'] = post
-
-        if post.type != Post.FORUM:
-            raise Http404("Post not found")
 
         return context
 

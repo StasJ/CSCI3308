@@ -18,3 +18,14 @@ class NewAssignmentForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+class NewSubmissionForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['content', 'attachment']
+        field_classes = {
+                'content': RTFField
+        }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)

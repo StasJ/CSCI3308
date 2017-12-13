@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+
+{% block title %} | New Post{% endblock %}
+
+{% block main %}
+	<div class="row">
+		<div id="post" class="card clear-m">
+			<div class="card-content">
+				<span class="card-title">New Submission</span>
+			</div>
+			<div class="divider"></div>
+			<form id="new-post-form" method="POST" enctype="multipart/form-data">
+				{% csrf_token %}
+				<div class="card-content">
+					<div class="row clear">
+						<div class="col s12">
+							{{ form.content.label_tag }}
+							{{ form.content }}
+							{% if form.content.errors %}
+							<span class="helper-text red-text" data-error="wrong" data-success="right">{{ form.content.errors.0 }}</span>
+							{% endif %}
+						</div>
+					</div>
+					<br>
+					<div class="row clear">
+						<div class="file-field input-field">
+							<div class="btn">
+								<span>{{ form.attachment.label }}</span>
+								{{ form.attachment }}
+							</div>
+							<div class="file-path-wrapper">
+								<input class="file-path validate" type="text">
+							</div>
+						</div>
+						<p>{{ form.errors }}</p>
+						{% for field in form.fields %}
+						<p>{{ field.errors }}</p>
+						{% endfor %}	
+					</div>
+				</div>
+				<div class="card-action">
+					<div class="right-align"><button class="btn" type="submit">Submit</button></div>
+				</div>
+			</form>
+		</div>
+	</div>
+
+{% endblock %}
+
+<script>
+{% block document_ready %}
+$('.summernote').summernote({
+	placeholder: 'Post content',
+	tabsize: 2,
+	height: 100,
+	minHeight: 100,
+	maxHeight: 500,
+	toolbar: [
+		['style', ['bold', 'italic', 'underline', 'clear']],
+		['font', ['strikethrough', 'superscript', 'subscript']],
+		['fontsize', ['fontsize']],
+		['color', ['color']],
+		['para', ['ul', 'ol', 'paragraph']],
+		['insert', ['link', 'picture', 'equation', 'table']]
+		]
+});
+
+$('#{{ form.due_date.auto_id }}').datepicker({
+	format:'yyyy-mm-dd'
+});
+
+{% endblock %}
+</script>

@@ -1,6 +1,6 @@
 from django.db import models
 from django.conf import settings
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, ObjectDoesNotExist
 
 from taggit.managers import TaggableManager
 
@@ -31,7 +31,7 @@ class Post(models.Model):
     parent = models.ForeignKey('self', on_delete=models.CASCADE, blank=True, null=True)
     anonymous = models.BooleanField(default=False)
     pinned = models.BooleanField(default=False)
-    content = models.TextField()
+    content = models.TextField(blank=True)
     tags = TaggableManager(blank=True)
     pub_time = models.DateTimeField(auto_now_add=True)
     edit_time = models.DateTimeField(auto_now=True)
@@ -40,6 +40,7 @@ class Post(models.Model):
     attachment = models.FileField(blank=True, null=True, upload_to=attachment_path);
     type = models.IntegerField(choices=TYPE_CHOICES, default=FORUM)
     due_date = models.DateTimeField(null=True)
+    grade = models.IntegerField(blank=True, null=True)
 
 
     def clean_fields(self, exclude=None):
@@ -52,6 +53,13 @@ class Post(models.Model):
             return "Anonymous"
         else:
             return self.user.get_full_name()
+
+    def get_grade_string(self):
+        try:
+            lastGraded = self.post_set.filter(grade__isnull=False).latest(field_name='pub_time')
+            return lastGraded.grade
+        except ObjectDoesNotExist:
+            return '-'
 
     def __str__(self):
         return self.title

@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% load basename %}
+
+{% block main %}
+	{% if is_prof %}
+	<a id="edit-post" href="{% url 'assignments:new' course.id %}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+	{% endif %}
+
+	<div class="row">
+		<div id="post" class="card clear-m">
+			<div class="card-content">
+				<span class="card-title">{{ course.get_name }} Assignments</span>
+				<table class="highlight">
+					<thead>
+						<tr>
+							<th>Assignment</th>
+							<th>Due Date</th>
+							<th>Grade</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for post in post_list %}
+						<tr class="link-row" data-href="{% url 'assignments:detail' course.id post.id %}" style="cursor: pointer">
+							<td>{{ post.title }}</td>
+							<td>{{ post.due_date }}</td>
+							<td>{{ post.get_grade_string }}</td>
+						</tr>
+						{% endfor %}	
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+{% endblock %}
+
+<script>
+{% block document_ready %}
+$('.link-row').click(function() {
+	window.location = $(this).data("href");
+});
+{% endblock %}
+</script>

@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+{% load humanize %}
+{% load static %}
+{% load basename %}
+
+{% block main %}
+	<div class="row">
+		<div id="post" class="card clear-m">
+			<div class="card-content">
+				<span class="card-title">Submission for <a href="{% url 'assignments:detail' course.id assignment.id %}">{{ assignment.title }}</a></span>
+				<b>{{ post.author_name }}</b>
+			</div>
+			<div class="divider"></div>
+			<div class="card-content">
+				<p>{{ post.content | safe }}</p>
+				{% if post.attachment %}
+				<br>
+				<span><a href="{{ post.attachment.url }}"><i class="material-icons left">insert_drive_file</i>{{ post.attachment|basename }}</a></span>
+				{% endif %}
+			</div>
+			<div class="divider"></div>
+			<form method="POST">
+				<div class="card-content">
+					{% csrf_token %}
+					<div class="row clear">
+						<div class="input-field col s12">
+							<input type="number" name="{{ form.grade.name }}" id="{{ form.grade.auto_id }}" value="{{ post.grade }}">
+							{{ form.grade.label_tag }}
+							{{ form.grade.label_tag }}
+							{% if form.grade.errors %}
+							<span class="helper-text red-text" data-error="wrong" data-success="right">{{ form.grade.errors.0 }}</span>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+				<div class="card-action">
+					<div class="right-align"><button class="btn" type="submit">Submit Grade</button></div>
+				</div>
+			</form>
+		</div>
+	</div>
+{% endblock %}
+
+<script>
+{% block document_ready %}
+$('.link-row').click(function() {
+	window.location = $(this).data("href");
+});
+{% endblock %}
+</script>
