@@ -42,9 +42,8 @@
 		</nav>
 	</div>
 	<ul id="sidenav" class="sidenav sidenav-fixed">
-		<li><a href="">Link 1</a></li>
-		<li><a href="">Link 2</a></li>
-		<li><a href="">Link 3</a></li>
+		<li><a href="{% url 'forum:index' course.id %}">Forum</a></li>
+		<li><a href="{% url 'assignments:index' course.id %}">Assignments</a></li>
 	</ul>
 </header>
 

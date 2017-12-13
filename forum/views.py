@@ -3,6 +3,7 @@ from django.views.generic import ListView
 from django.views.generic import TemplateView, FormView
 from django.urls import reverse
 from django.contrib.auth import get_user
+from django.http import Http404
 
 from course.views import CourseView
 from course.models import Course
@@ -15,7 +16,7 @@ class ForumView(CourseView):
 
     def get_context_data(self, **kwargs):
         context = super(ForumView, self).get_context_data(**kwargs)
-        context['post_list'] = context['course'].post_set.exclude(parent__isnull=False).order_by('-pub_time')
+        context['post_list'] = context['course'].post_set.exclude(parent__isnull=False, type=Post.FORUM).order_by('-pub_time')
         return context
 
 
@@ -28,6 +29,10 @@ class PostView(CourseView, FormView):
         context = super(PostView, self).get_context_data(**kwargs)
         post = get_object_or_404(Post, pk=post_id)
         context['post'] = post
+
+        if post.type != Post.FORUM:
+            raise Http404("Post not found")
+
         return context
 
     def form_valid(self, form):
@@ -37,6 +42,7 @@ class PostView(CourseView, FormView):
         comment.course_id = kwargs['course_id']
         comment.parent_id = kwargs['post_id']
         comment.title = "Reply to post " + str(comment.parent_id)
+        comment.type = Post.COMMENT
         comment.save()
         self.success_url = reverse('forum:detail', args=(kwargs['course_id'], kwargs['post_id']))
         return super().form_valid(form)
@@ -57,6 +63,7 @@ class NewPostView(CourseView, FormView):
         post = form.save(commit=False)
         post.user = get_user(self.request)
         post.course_id = kwargs['course_id']
+        comment.type = Post.FORUM
         post.save()
         self.success_url = reverse('forum:detail', args=(kwargs['course_id'], post.id))
         return super().form_valid(form)
