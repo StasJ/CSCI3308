@@ -2,6 +2,7 @@
 {% load humanize %}
 {% load static %}
 {% load basename %}
+{% load grade %}
 
 {% block main %}
 	{% if is_prof %}
@@ -26,7 +27,7 @@
 						<tr class="link-row" data-href="{% url 'assignments:detail' course.id post.id %}" style="cursor: pointer">
 							<td>{{ post.title }}</td>
 							<td>{{ post.due_date }}</td>
-							<td>{{ post.get_grade_string }}</td>
+							<td>{% grade post user.id %}</td>
 						</tr>
 						{% endfor %}	
 

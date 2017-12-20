@@ -54,9 +54,9 @@ class Post(models.Model):
         else:
             return self.user.get_full_name()
 
-    def get_grade_string(self):
+    def get_grade_string(self, user_id):
         try:
-            lastGraded = self.post_set.filter(grade__isnull=False).latest(field_name='pub_time')
+            lastGraded = self.post_set.filter(user_id=user_id, grade__isnull=False).latest(field_name='pub_time')
             return lastGraded.grade
         except ObjectDoesNotExist:
             return '-'
