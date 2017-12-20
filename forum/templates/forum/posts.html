@@ -2,8 +2,32 @@
 {% load humanize %}
 {% load static %}
 
+{% block style %}
+.post-panel {
+	position: relative;
+}
+.post-panel:hover {
+	background-color: rgba(0, 0, 0, 0.05);
+}
+
+span.post-link {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+{% endblock %}	
+
 {% block main %}
 	<a href="{% url 'forum:new' course.id %}" id="edit-post" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
+	<div class="tap-target blue" data-target="edit-post">
+		<div class="tap-target-content">
+			<h5>Create a Post</h5>
+			<p>Theres nothing here yet. Click the <i class="material-icons">add</i> to create a new post.</p>
+		</div>
+	</div>
 
 	<div class="row">
 		<div class="card">
@@ -12,8 +36,10 @@
 			</div>
 			<div class="divider"></div>
 			<div class="card-stacked">
+				{% if post_list %}
 				{% for post in post_list %}
-				<div id="post-{{ post.id }}" class="card-content">
+				<div id="post-{{ post.id }}" class="card-content post-panel">
+					<a href="{% url 'forum:detail' course.id post.id %}"><span class="post-link"></span></a>
 					<div class="row">
 						<a href="{% url 'forum:detail' course.id post.id %}"><b class="grey-text text-darken-3">{{ post.title }}</b></a>
 						<span class="right grey-text">{{ post.pub_time | naturaltime }}</span>
@@ -22,7 +48,11 @@
 				</div>
 				<div class="divider"></div>
 				{% endfor %}
-
+				{% else %}
+				<div class="card-content">
+					<p>There's nothing here. Click the <span class="blue-text">blue</span> Plus button on the bottom right to get started.</p>
+				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>
@@ -30,6 +60,9 @@
 
 <script>
 {% block document_ready %}
-
+{% if not post_list %}
+$('.tap-target').featureDiscovery();
+$('.tap-target').featureDiscovery('open');
+{% endif %}
 {% endblock %}
 </script>

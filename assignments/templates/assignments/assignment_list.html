@@ -12,6 +12,7 @@
 		<div id="post" class="card clear-m">
 			<div class="card-content">
 				<span class="card-title">{{ course.get_name }} Assignments</span>
+				{% if post_list %}
 				<table class="highlight">
 					<thead>
 						<tr>
@@ -28,9 +29,21 @@
 							<td>{{ post.get_grade_string }}</td>
 						</tr>
 						{% endfor %}	
+
 					</tbody>
 				</table>
+				{% endif %}	
 			</div>
+			{% if not post_list %}
+			<div class="divider"></div>
+			<div class="card-content">
+				{% if is_prof %}
+				<p>There's nothing here. Click the <span class="blue-text">blue</span> Plus button on the bottom right to get started.</p>
+				{% else %}
+				<p>There's nothing here. Please log in as a Professor or TA to add an assignment.</p>
+				{% endif %}
+			</div>
+			{% endif %}	
 		</div>
 	</div>
 
