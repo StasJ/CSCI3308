@@ -44,8 +44,8 @@
 				{% csrf_token %}
 				<div class="row clear">
 					<div class="col s12">
-						{% if assignment.grade %}
-						<p>Grade: {{ assignment.grade }}</p>
+						{% if post.grade %}
+						<p>Grade: {{ post.grade }}</p>
 						{% else %}	
 						<p>This submission has not yet been graded.</p>
 						{% endif %}
