@@ -18,6 +18,7 @@
 				<span><a href="{{ post.attachment.url }}"><i class="material-icons left">insert_drive_file</i>{{ post.attachment|basename }}</a></span>
 				{% endif %}
 			</div>
+			{% if is_prof %}
 			<div class="divider"></div>
 			<form method="POST">
 				<div class="card-content">
@@ -37,6 +38,21 @@
 					<div class="right-align"><button class="btn" type="submit">Submit Grade</button></div>
 				</div>
 			</form>
+			{% else %}
+			<div class="divider"></div>
+			<div class="card-content">
+				{% csrf_token %}
+				<div class="row clear">
+					<div class="col s12">
+						{% if assignment.grade %}
+						<p>Grade: {{ assignment.grade }}</p>
+						{% else %}	
+						<p>This submission has not yet been graded.</p>
+						{% endif %}
+					</div>
+				</div>
+			</div>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

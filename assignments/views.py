@@ -4,6 +4,7 @@ from course.views import CourseView
 from course.models import Course, Membership
 from django.views.generic import TemplateView, FormView, UpdateView
 from django.http import Http404
+from django.core.exceptions import PermissionDenied
 
 
 from forum.models import Post
@@ -49,12 +50,21 @@ class AssignmentSubmissionView(CourseView, UpdateView):
         context = super().get_context_data(**kwargs)
         assignment = get_object_or_404(Post, pk=post_id, type=Post.ASSIGNMENT)
         submission = get_object_or_404(Post, pk=pk, type=Post.SUBMISSION)
+        is_prof = self.request.user.membership_set.filter(id=self.kwargs['course_id'], type__gte=Membership.TA).exists()
 
         self.object = submission
 
+        context['is_prof'] = is_prof
         context['assignment'] = assignment
         context['post'] = submission
         return context
+
+    def post(self, request, *args, **kwargs):
+        is_prof = self.request.user.membership_set.filter(id=self.kwargs['course_id'], type__gte=Membership.TA).exists()
+        if is_prof:
+            return super().post(request, *args, **kwargs)
+        else:
+            raise PermissionDenied
 
     def get_success_url(self):
         return reverse('assignments:detail', args=(self.kwargs['course_id'], self.kwargs['post_id']))
@@ -103,8 +113,8 @@ class AssignmentSubmitView(CourseView, FormView):
         context = super().get_context_data(**kwargs)
         return context
 
-    def test_func(self):
-        return super().test_func() and self.request.user.membership_set.filter(id=self.kwargs['course_id'], type__gte=Membership.TA).exists()
+    # def test_func(self):
+    #     return super().test_func() and self.request.user.membership_set.filter(id=self.kwargs['course_id'], type__gte=Membership.TA).exists()
 
     def form_valid(self, form):
         kwargs = self.kwargs # post does not pass in kwargs
