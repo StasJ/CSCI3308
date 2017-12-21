@@ -48,6 +48,21 @@
 	</ul>
 </header>
 
+
+<a href="#info-modal" id="info-button" data-target="info-modal" class="hide modal-trigger btn-floating btn-large waves-effect waves-light yellow darken-3"><i class="material-icons">info_outline</i></a>
+<div id="info-modal" class="modal modal-fixed-footer">
+	<div class="modal-content">
+	</div>
+	<div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat" href="#!">Close</a></div>
+</div>
+<div id="info-tap-target" class="tap-target yellow darken-3" data-target="info-button">
+	<div class="tap-target-content">
+		<h5>Page Info</h5>
+		<p>Click here to get info on this page and a summary of its features.</p>
+	</div>
+</div>
+
+
 <main>
 {% block main %}{% endblock %}	
 </main>
@@ -71,6 +86,20 @@ $(document).ready(function() {
 	$('span.latex').not('.summernote span.latex').each(function() {
 		MQ.StaticMath(this);
 	});
+
+	if ($('#info-content').length === 1) {
+		$('#info-modal > .modal-content').html($('#info-content').html());
+		$('#info-button').removeClass('hide');
+	}
+
+	{% if info_shown != None %}
+	{% if not info_shown %}
+	$('#info-tap-target').featureDiscovery();
+	$('#info-tap-target').featureDiscovery('open');
+	{% endif %}
+	{% endif %}
+
+
 
 	{% block document_ready %}{% endblock %}
 });
