@@ -14,6 +14,10 @@ class CourseView(LoginRequiredMixin, UserPassesTestMixin, TemplateView):
         course = get_object_or_404(Course, pk=course_id)
         context['course'] = course
         context['course_list'] = self.request.user.course_set.all()
+
+        context['info_shown'] = self.request.session.get('info_shown', default=False)
+        self.request.session['info_shown'] = True
+
         return context
 
     def test_func(self):

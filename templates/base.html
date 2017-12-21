@@ -60,12 +60,13 @@ var MQ = MathQuill.getInterface(2);
 </script>
 <script type="text/javascript" src="{% static 'summernote/summernote-lite.js' %}"></script>
 <script type="text/javascript" src="{% static 'summernote/plugin/math/summernote-ext-math.js' %}"></script>
-<script type="text/javascript" src="{% static 'livereload/run.js' %}"></script>
+<!--<script type="text/javascript" src="{% static 'livereload/run.js' %}"></script>-->
 {% block js_include %}{% endblock %}
 <script>
 $(document).ready(function() {
 	$('.sidenav').sidenav();
 	$('.dropdown-trigger').dropdown();
+	$('.modal').modal();
 
 	$('span.latex').not('.summernote span.latex').each(function() {
 		MQ.StaticMath(this);

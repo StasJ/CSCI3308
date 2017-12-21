@@ -88,3 +88,10 @@ b {
 	bottom: 26px;
 	right: 26px;
 }
+
+#info-button {
+	position: fixed;
+	bottom: 26px;
+	left: 26px;
+	z-index: 1000 !important;
+}

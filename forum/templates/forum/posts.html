@@ -22,10 +22,25 @@ span.post-link {
 
 {% block main %}
 	<a href="{% url 'forum:new' course.id %}" id="edit-post" class="btn-floating btn-large waves-effect waves-light blue"><i class="material-icons">add</i></a>
-	<div class="tap-target blue" data-target="edit-post">
+	<div id="edit-tap-target" class="tap-target blue" data-target="edit-post">
 		<div class="tap-target-content">
 			<h5>Create a Post</h5>
 			<p>Theres nothing here yet. Click the <i class="material-icons">add</i> to create a new post.</p>
+		</div>
+	</div>
+
+	<a href="#info-modal" id="info-button" data-target="info-modal" class="modal-trigger btn-floating btn-large waves-effect waves-light yellow darken-3"><i class="material-icons">info_outline</i></a>
+	<div id="info-modal" class="modal modal-fixed-footer">
+		<div class="modal-content">
+			<h4>Info</h4>
+			<p>This page shows the course forum. You can only see this page if you are a member of the course. Click the bottom right blue + to add a new post.</p>
+		</div>
+		<div class="modal-footer"><a class="modal-action modal-close waves-effect waves-green btn-flat" href="#!">Close</a></div>
+	</div>
+	<div id="info-tap-target" class="tap-target yellow darken-3" data-target="info-button">
+		<div class="tap-target-content">
+			<h5>Page Info</h5>
+			<p>Click here to get info on this page and a summary of its features.</p>
 		</div>
 	</div>
 
@@ -61,8 +76,15 @@ span.post-link {
 <script>
 {% block document_ready %}
 {% if not post_list %}
-$('.tap-target').featureDiscovery();
-$('.tap-target').featureDiscovery('open');
+$('#edit-tap-target').featureDiscovery();
+$('#edit-tap-target').featureDiscovery('open');
 {% endif %}
+
+{% if not info_shown %}
+$('#info-tap-target').featureDiscovery();
+$('#info-tap-target').featureDiscovery('open');
+{% endif %}
+
+
 {% endblock %}
 </script>
