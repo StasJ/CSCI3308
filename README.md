@@ -20,3 +20,13 @@ The following test accounts are available:
 - Student Account
   - email: student@gmail.com
   - password: password123
+
+New accounts can be created with the registration page.
+
+## Unit Tests
+
+Automated Unit Testing will be performed by the integrated testing system provided by Django. There are some automated tests for both the models and views. The model tests create a test Model (Python representation of a database row) and tests that its functions work as expected.
+
+The view tests create a clean testing database and populate it with an example scenario. It then performs requests on a test http server and compares the responses against the expected outcome.
+
+The tests can be run from the root of the git repository with `python3 ./manage.py test forum`, however for the tests to run, you need a python3 environment with Django installed.
