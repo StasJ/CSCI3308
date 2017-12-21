@@ -23,6 +23,11 @@ The following test accounts are available:
 
 New accounts can be created with the registration page.
 
+Most pages will have an info icon on the bottom left. When you first log in, it will be highlighted for you. This button will bring up a window that talks about the features of the page.
+
+<img src="https://github.com/StasJ/CSCI3308/blob/master/static/discovery.jpg" width="250"><img src="https://github.com/StasJ/CSCI3308/blob/master/static/info.jpg" width="250">
+
+
 ## Unit Tests
 
 Automated Unit Testing will be performed by the integrated testing system provided by Django. There are some automated tests for both the models and views. The model tests create a test Model (Python representation of a database row) and tests that its functions work as expected.
