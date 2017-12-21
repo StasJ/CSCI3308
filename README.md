@@ -20,3 +20,5 @@ The following test accounts are available:
 - Student Account
   - email: student@gmail.com
   - password: password123
+
+New accounts can be created with the registration page.
