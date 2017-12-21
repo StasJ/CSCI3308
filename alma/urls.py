@@ -21,8 +21,11 @@ from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
 
+from . import views
+
 urlpatterns = [
     url('^', include('django.contrib.auth.urls')),
+    url('^reset/', views.resetView),
     url(r'^course/', include('course.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^livereload/', include('livereload.urls')),
