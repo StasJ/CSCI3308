@@ -7,6 +7,15 @@
 	<a href="{% url 'forum:new' course.id %}?id={{ post.id }}" id="edit-post" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
 	{% endif %}
 
+	<div id="info-content">
+		<h4>Post Detail</h4>
+		<p>This page shows a post. You can only see this page if you are a member of the course.</p>
+		<h5>Editing</h5>
+		<p>If you are the owner of this post, you will have a red edit button on the bottom right.</p>
+		<h5>Comments</h5>
+		<p>Comments are shown below the post. Clicking on the comment area expands the Anonymous option and the submit button. The server will only accept your comment if you are a student of this course.</p>
+	</div>
+
 	<div class="row">
 		<div id="post" class="card clear-m">
 			<div class="card-content">

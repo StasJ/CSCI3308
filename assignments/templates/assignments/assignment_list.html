@@ -9,6 +9,15 @@
 	<a id="edit-post" href="{% url 'assignments:new' course.id %}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
 	{% endif %}
 
+	<div id="info-content">
+		<h4>Assignment List</h4>
+		<p>This page shows the assignments associated with this course. You can only see this page if you are a member of the course.</p>
+		<h5>New Assignments</h5>
+		<p>If you are a professor for this course, you will have a blue new button on the bottom right.</p>
+		<h5>Grades</h5>
+		<p>Next to your assignment, it will show your grade. This grade is from the most recent submission that already has a grade.</p>
+	</div>
+
 	<div class="row">
 		<div id="post" class="card clear-m">
 			<div class="card-content">

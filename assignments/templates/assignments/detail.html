@@ -8,6 +8,15 @@
 	<a id="edit-post" href="{% url 'assignments:new' course.id %}?id={{ post.id }}" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">mode_edit</i></a>
 	{% endif %}
 
+	<div id="info-content">
+		<h4>Assignment Detail</h4>
+		<p>This page shows an assignments. You can only see this page if you are a member of the course.</p>
+		<h5>Edit</h5>
+		<p>If you are a professor or TA for this course, you will have a red edit button on the bottom right.</p>
+		<h5>Submissions</h5>
+		<p>Below the assignment, it will show your the submissions. If you are a student, it will show your submissions. If you are a professor or TA, it will show all submissions. If you are a student, you can only view your own submissions, if you are a prof, you can view all submissions.</p>
+	</div>
+
 	<div class="row">
 		<div id="post" class="card clear-m">
 			<div class="card-content">

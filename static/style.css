@@ -95,3 +95,7 @@ b {
 	left: 26px;
 	z-index: 1000 !important;
 }
+
+#info-content {
+	display:none;
+}
